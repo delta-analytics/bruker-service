@@ -1,4 +1,4 @@
-package deltaanalytics.bruker.hardware;
+package deltaanalytics.bruker.hardware.dto;
 
 
 import deltaanalytics.bruker.data.entity.BrukerStateEnum;
