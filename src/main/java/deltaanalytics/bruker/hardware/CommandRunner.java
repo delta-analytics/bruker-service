@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalDateTime;
 
 public class CommandRunner {
     private Logger LOGGER = LoggerFactory.getLogger(CommandRunner.class);
@@ -36,6 +37,7 @@ public class CommandRunner {
         } catch (Exception e) {
             measureReference.setBrukerStateEnum(BrukerStateEnum.FINISHED_WITH_ERRORS);
             measureReference.setError(getStackTrace(e));
+            measureReference.setFinishedAt(LocalDateTime.now());
             measureReferenceRepository.createOrUpdate(measureReference);
             throw new RuntimeException(e);
         }
@@ -68,6 +70,7 @@ public class CommandRunner {
             measureSampleRepository.createOrUpdate(measureSample);
         } catch (Exception e) {
             measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED_WITH_ERRORS);
+            measureSample.setFinishedAt(LocalDateTime.now());
             measureSample.setError(getStackTrace(e));
             measureSampleRepository.createOrUpdate(measureSample);
             throw new RuntimeException(e);
