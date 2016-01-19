@@ -14,6 +14,7 @@ public class MeasureSample implements BrukerDataEntity {
     private LocalDateTime createdAt;
     private LocalDateTime finishedAt;
     private BrukerStateEnum brukerStateEnum;
+    private String filename;
     private String error;
 
     @Id
@@ -72,6 +73,14 @@ public class MeasureSample implements BrukerDataEntity {
 
     public void setBrukerStateEnum(BrukerStateEnum brukerStateEnum) {
         this.brukerStateEnum = brukerStateEnum;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     @Lob
