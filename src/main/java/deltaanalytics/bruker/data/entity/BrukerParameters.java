@@ -720,4 +720,67 @@ public class BrukerParameters {
         result = 31 * result + (ZFF != null ? ZFF.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "BrukerParameters{" +
+                "id=" + id +
+                ", measureSample=" + measureSample +
+                ", ADP='" + ADP + '\'' +
+                ", ADT=" + ADT +
+                ", APF='" + APF + '\'' +
+                ", APT='" + APT + '\'' +
+                ", AQM='" + AQM + '\'' +
+                ", BMS='" + BMS + '\'' +
+                ", BSF='" + BSF + '\'' +
+                ", CHN='" + CHN + '\'' +
+                ", CNM='" + CNM + '\'' +
+                ", COF=" + COF +
+                ", DAP='" + DAP + '\'' +
+                ", DEL=" + DEL +
+                ", DIG=" + DIG +
+                ", DLY=" + DLY +
+                ", DMX='" + DMX + '\'' +
+                ", DPA=" + DPA +
+                ", DPO=" + DPO +
+                ", DTC='" + DTC + '\'' +
+                ", EXP='" + EXP + '\'' +
+                ", GSG='" + GSG + '\'' +
+                ", HFQ=" + HFQ +
+                ", HFW=" + HFW +
+                ", IRS=" + IRS +
+                ", HPF=" + HPF +
+                ", LFQ=" + LFQ +
+                ", LFW=" + LFW +
+                ", LPF='" + LPF + '\'' +
+                ", MIN=" + MIN +
+                ", MIR=" + MIR +
+                ", NAM='" + NAM + '\'' +
+                ", NLI=" + NLI +
+                ", NSS=" + NSS +
+                ", NSR=" + NSR +
+                ", OEX='" + OEX + '\'' +
+                ", OPF='" + OPF + '\'' +
+                ", PGN='" + PGN + '\'' +
+                ", PGR='" + PGR + '\'' +
+                ", PHR=" + PHR +
+                ", PHZ='" + PHZ + '\'' +
+                ", PLF='" + PLF + '\'' +
+                ", PTH='" + PTH + '\'' +
+                ", RCH='" + RCH + '\'' +
+                ", RES=" + RES +
+                ", RGN='" + RGN + '\'' +
+                ", SAN='" + SAN + '\'' +
+                ", SEP='" + SEP + '\'' +
+                ", SFM='" + SFM + '\'' +
+                ", SGN='" + SGN + '\'' +
+                ", SNM='" + SNM + '\'' +
+                ", SON='" + SON + '\'' +
+                ", VEL='" + VEL + '\'' +
+                ", X64='" + X64 + '\'' +
+                ", XPP='" + XPP + '\'' +
+                ", YON='" + YON + '\'' +
+                ", ZFF='" + ZFF + '\'' +
+                '}';
+    }
 }
