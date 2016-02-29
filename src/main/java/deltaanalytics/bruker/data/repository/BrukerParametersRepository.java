@@ -2,8 +2,13 @@ package deltaanalytics.bruker.data.repository;
 
 
 import deltaanalytics.bruker.data.entity.BrukerParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.persistence.NoResultException;
 
 public class BrukerParametersRepository extends BrukerDataRepository<BrukerParameters> {
+    private static final Logger logger = LoggerFactory.getLogger(BrukerParametersRepository.class);
     @Override
     public boolean exists(BrukerParameters entity) {
         return read(entity.getId()) != null;
@@ -22,9 +27,13 @@ public class BrukerParametersRepository extends BrukerDataRepository<BrukerParam
     }
 
     public void createOrUpdateAndMakeDefault(BrukerParameters brukerParameters) {
-        BrukerParameters currentActive = readCurrentActiveDefault();
-        currentActive.setCurrentDefault(false);
-        super.createOrUpdate(currentActive);
+        try {
+            BrukerParameters currentActive = readCurrentActiveDefault();
+            currentActive.setCurrentDefault(false);
+            super.createOrUpdate(currentActive);
+        } catch (NoResultException noRes){
+            logger.warn("No active BrukerParameters");
+        }
         brukerParameters.setCurrentDefault(true);
         super.createOrUpdate(brukerParameters);
     }
