@@ -4,6 +4,7 @@ import deltaanalytics.bruker.data.entity.BrukerParameters;
 import deltaanalytics.bruker.data.entity.BrukerStateEnum;
 import deltaanalytics.bruker.data.entity.MeasureReference;
 import deltaanalytics.bruker.data.entity.MeasureSample;
+import deltaanalytics.bruker.data.repository.BrukerParametersRepository;
 import deltaanalytics.bruker.data.repository.MeasureReferenceRepository;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
 import deltaanalytics.bruker.hardware.commands.*;
@@ -43,27 +44,29 @@ public class CommandRunner {
         }
     }
 
-    public void measureSample(String host, int port, BrukerParameters brukerParameters) {
+    public void measureSample(String host, int port) {
         MeasureSample measureSample = new MeasureSample();
         MeasureSampleRepository measureSampleRepository = new MeasureSampleRepository();
+        BrukerParametersRepository brukerParametersRepository = new BrukerParametersRepository();
+        BrukerParameters currentDefaults = brukerParametersRepository.readCurrentActiveDefault();
         try {
             LOGGER.info("measureSample");
-            measureSample.setBrukerParameters(brukerParameters);
+            measureSample.setBrukerParameters(currentDefaults);
             measureSample.setBrukerStateEnum(BrukerStateEnum.QUEUED);
             measureSampleRepository.createOrUpdate(measureSample);
             measureSample.setBrukerStateEnum(BrukerStateEnum.RUNNING);
             measureSampleRepository.createOrUpdate(measureSample);
-            String[] brukerResult = run(host, port, new MeasureSampleCommand().build(host, port, brukerParameters));
+            String[] brukerResult = run(host, port, new MeasureSampleCommand().build(host, port, currentDefaults));
             MeasureSampleCommandResult measureSampleCommandResult = new MeasureSampleCommandResult(brukerResult);
             LOGGER.info("saveAs");
-            brukerParameters.setDAP(measureSampleCommandResult.getPath());
-            brukerParameters.setSAN(measureSampleCommandResult.getFileName());
-            LOGGER.info(brukerParameters.getDAP());
-            LOGGER.info(brukerParameters.getSAN());
-            brukerParameters.setSAN(measureSampleCommandResult.getFileName());
+            currentDefaults.setDAP(measureSampleCommandResult.getPath());
+            currentDefaults.setSAN(measureSampleCommandResult.getFileName());
+            LOGGER.info(currentDefaults.getDAP());
+            LOGGER.info(currentDefaults.getSAN());
+            currentDefaults.setSAN(measureSampleCommandResult.getFileName());
             measureSample.setFilename(measureSampleCommandResult.getPath() + File.separator + measureSampleCommandResult.getFileName());
-            run(host, port, new SaveAsCommand().build(host, brukerParameters, measureSampleCommandResult.getFileId()));
-            measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(brukerParameters.getDAP(), brukerParameters.getSAN()));
+            run(host, port, new SaveAsCommand().build(host, currentDefaults, measureSampleCommandResult.getFileId()));
+            measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(currentDefaults.getDAP(), currentDefaults.getSAN()));
             measureSampleRepository.createOrUpdate(measureSample);
             //jueke Temp und Pressure speichern / mitteln
             LOGGER.info("unload");
