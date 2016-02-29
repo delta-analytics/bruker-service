@@ -70,6 +70,7 @@ public class BrukerDefaultParametersTest {
         brukerDefaultParameters.setXPP("C:\\OPUS_7.0.129\\XPM");
         brukerDefaultParameters.setYON("0");
         brukerDefaultParameters.setZFF("4");
+        brukerDefaultParameters.setCurrentDefault(true);
         return brukerDefaultParameters;
     }
 }

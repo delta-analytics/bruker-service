@@ -11,6 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class MeasureSampleRepositoryTest {
     @Test
     public void create(){
+        CleanTestMemDB.cleanUp();
         MeasureSample measureSample = new MeasureSample();
         MeasureSampleResult measureSampleResult = new MeasureSampleResult();
         measureSampleResult.setFirstValue(1.001);

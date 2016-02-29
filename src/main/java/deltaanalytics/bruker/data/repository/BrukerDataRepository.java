@@ -69,6 +69,10 @@ public abstract class BrukerDataRepository<S extends BrukerDataEntity> {
         entityManager.close();
     }
 
+    EntityManager getEntityManager(){
+        return entityManager;
+    }
+
     public void deleteAll() {
         startDBOperation();
         List<S> list = entityManager.createQuery("Select t from " + getEntityClass().getSimpleName() + " t").getResultList();

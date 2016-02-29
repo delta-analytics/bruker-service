@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class MeasureReferenceRepositoryTest {
     @Test
     public void create(){
+        CleanTestMemDB.cleanUp();
         MeasureReference measureReference = new MeasureReference();
         measureReference.setBrukerParameters(BrukerParameters.getDefault());
 

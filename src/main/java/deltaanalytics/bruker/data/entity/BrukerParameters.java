@@ -7,10 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class BrukerParameters {
+public class BrukerParameters implements BrukerDataEntity{
     private long id;
     private MeasureSample measureSample;
-
+    private boolean currentDefault;
     private String ADP;
     private int ADT;
     private String APF;
@@ -583,7 +583,16 @@ public class BrukerParameters {
         brukerDefaultParameters.setXPP("C:\\OPUS_7.0.129\\XPM");
         brukerDefaultParameters.setYON("0");
         brukerDefaultParameters.setZFF("4");
+        brukerDefaultParameters.setCurrentDefault(true);
         return brukerDefaultParameters;
+    }
+
+    public boolean isCurrentDefault() {
+        return currentDefault;
+    }
+
+    public void setCurrentDefault(boolean currentDefault) {
+        this.currentDefault = currentDefault;
     }
 
     @Override
@@ -593,6 +602,7 @@ public class BrukerParameters {
 
         BrukerParameters that = (BrukerParameters) o;
 
+        if (currentDefault != that.currentDefault) return false;
         if (ADT != that.ADT) return false;
         if (COF != that.COF) return false;
         if (DEL != that.DEL) return false;
@@ -613,6 +623,8 @@ public class BrukerParameters {
         if (NSR != that.NSR) return false;
         if (Double.compare(that.PHR, PHR) != 0) return false;
         if (Double.compare(that.RES, RES) != 0) return false;
+        if (measureSample != null ? !measureSample.equals(that.measureSample) : that.measureSample != null)
+            return false;
         if (ADP != null ? !ADP.equals(that.ADP) : that.ADP != null) return false;
         if (APF != null ? !APF.equals(that.APF) : that.APF != null) return false;
         if (APT != null ? !APT.equals(that.APT) : that.APT != null) return false;
@@ -655,7 +667,9 @@ public class BrukerParameters {
     public int hashCode() {
         int result;
         long temp;
-        result = ADP != null ? ADP.hashCode() : 0;
+        result = measureSample != null ? measureSample.hashCode() : 0;
+        result = 31 * result + (currentDefault ? 1 : 0);
+        result = 31 * result + (ADP != null ? ADP.hashCode() : 0);
         result = 31 * result + ADT;
         result = 31 * result + (APF != null ? APF.hashCode() : 0);
         result = 31 * result + (APT != null ? APT.hashCode() : 0);
@@ -726,6 +740,7 @@ public class BrukerParameters {
         return "BrukerParameters{" +
                 "id=" + id +
                 ", measureSample=" + measureSample +
+                ", currentDefault=" + currentDefault +
                 ", ADP='" + ADP + '\'' +
                 ", ADT=" + ADT +
                 ", APF='" + APF + '\'' +
