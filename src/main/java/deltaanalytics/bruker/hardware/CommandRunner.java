@@ -11,52 +11,58 @@ import deltaanalytics.bruker.hardware.commands.*;
 import deltaanalytics.bruker.hardware.util.MeasureSampleResultParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalDateTime;
 
+@Component
 public class CommandRunner {
     private Logger LOGGER = LoggerFactory.getLogger(CommandRunner.class);
+    private MeasureReferenceRepository measureReferenceRepository;
+    private BrukerParametersRepository brukerParametersRepository;
+    private MeasureSampleRepository measureSampleRepository;
+    private String host;
+    private int port;
 
-    public String getVersion(String host, int port) throws Exception {
+    public String getVersion() throws Exception {
         LOGGER.info("getVersion");
-        return run(host, port, new GetVersionCommand().build(host, port))[0];
+        return run(new GetVersionCommand().build(host, port))[0];
     }
 
-    public void measureReference(String host, int port, BrukerParameters brukerParameters) {
+    public void measureReference(BrukerParameters brukerParameters) {
         MeasureReference measureReference = new MeasureReference();
-        MeasureReferenceRepository measureReferenceRepository = new MeasureReferenceRepository();
         try {
             LOGGER.info("measureReference");
             measureReference.setBrukerStateEnum(BrukerStateEnum.QUEUED);
             measureReference.setBrukerParameters(brukerParameters);
-            measureReferenceRepository.createOrUpdate(measureReference);
-            run(host, port, new MeasureReferenceCommand().build(host, port, brukerParameters));
+            measureReferenceRepository.save(measureReference);
+            run(new MeasureReferenceCommand().build(host, port, brukerParameters));
             measureReference.setBrukerStateEnum(BrukerStateEnum.FINISHED);
-            measureReferenceRepository.createOrUpdate(measureReference);
+            measureReferenceRepository.save(measureReference);
         } catch (Exception e) {
             measureReference.setBrukerStateEnum(BrukerStateEnum.FINISHED_WITH_ERRORS);
             measureReference.setError(getStackTrace(e));
             measureReference.setFinishedAt(LocalDateTime.now());
-            measureReferenceRepository.createOrUpdate(measureReference);
+            measureReferenceRepository.save(measureReference);
             throw new RuntimeException(e);
         }
     }
 
-    public void measureSample(String host, int port) {
+    public void measureSample() {
         MeasureSample measureSample = new MeasureSample();
-        MeasureSampleRepository measureSampleRepository = new MeasureSampleRepository();
-        BrukerParametersRepository brukerParametersRepository = new BrukerParametersRepository();
-        BrukerParameters currentDefaults = brukerParametersRepository.readCurrentActiveDefault();
+        BrukerParameters currentDefaults = brukerParametersRepository.findByCurrentDefaultTrue();
         try {
             LOGGER.info("measureSample");
             measureSample.setBrukerParameters(currentDefaults);
             measureSample.setBrukerStateEnum(BrukerStateEnum.QUEUED);
-            measureSampleRepository.createOrUpdate(measureSample);
+            measureSampleRepository.save(measureSample);
             measureSample.setBrukerStateEnum(BrukerStateEnum.RUNNING);
-            measureSampleRepository.createOrUpdate(measureSample);
-            String[] brukerResult = run(host, port, new MeasureSampleCommand().build(host, port, currentDefaults));
+            measureSampleRepository.save(measureSample);
+            String[] brukerResult = run(new MeasureSampleCommand().build(host, port, currentDefaults));
             MeasureSampleCommandResult measureSampleCommandResult = new MeasureSampleCommandResult(brukerResult);
             LOGGER.info("saveAs");
             currentDefaults.setDAP(measureSampleCommandResult.getPath());
@@ -65,25 +71,25 @@ public class CommandRunner {
             LOGGER.info(currentDefaults.getSAN());
             currentDefaults.setSAN(measureSampleCommandResult.getFileName());
             measureSample.setFilename(measureSampleCommandResult.getPath() + File.separator + measureSampleCommandResult.getFileName());
-            run(host, port, new SaveAsCommand().build(host, currentDefaults, measureSampleCommandResult.getFileId()));
+            run(new SaveAsCommand().build(host, currentDefaults, measureSampleCommandResult.getFileId()));
             measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(currentDefaults.getDAP(), currentDefaults.getSAN()));
-            measureSampleRepository.createOrUpdate(measureSample);
+            measureSampleRepository.save(measureSample);
             //jueke Temp und Pressure speichern / mitteln
             LOGGER.info("unload");
-            run(host, port, new UnloadCommand().build(host, measureSampleCommandResult.getFileId()));
+            run(new UnloadCommand().build(host, measureSampleCommandResult.getFileId()));
             measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED);
-            measureSampleRepository.createOrUpdate(measureSample);
+            measureSampleRepository.save(measureSample);
         } catch (Exception e) {
             measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED_WITH_ERRORS);
             measureSample.setFinishedAt(LocalDateTime.now());
             measureSample.setError(getStackTrace(e));
-            measureSampleRepository.createOrUpdate(measureSample);
+            measureSampleRepository.save(measureSample);
             throw new RuntimeException(e);
         }
 
     }
 
-    private String[] run(String host, int port, String encodedCommand) throws Exception {
+    private String[] run(String encodedCommand) throws Exception {
         Socket s = new Socket(host, port);
         OutputStream theOutput = s.getOutputStream();
         PrintWriter pw = new PrintWriter(theOutput, false);
@@ -123,5 +129,30 @@ public class CommandRunner {
         final PrintWriter pw = new PrintWriter(sw, true);
         throwable.printStackTrace(pw);
         return sw.getBuffer().toString();
+    }
+
+    @Autowired
+    public void setMeasureReferenceRepository(MeasureReferenceRepository measureReferenceRepository) {
+        this.measureReferenceRepository = measureReferenceRepository;
+    }
+
+    @Autowired
+    public void setBrukerParametersRepository(BrukerParametersRepository brukerParametersRepository) {
+        this.brukerParametersRepository = brukerParametersRepository;
+    }
+
+    @Autowired
+    public void setMeasureSampleRepository(MeasureSampleRepository measureSampleRepository) {
+        this.measureSampleRepository = measureSampleRepository;
+    }
+
+    @Value("${hardware.host}")
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    @Value("${hardware.port}")
+    public void setPort(int port) {
+        this.port = port;
     }
 }

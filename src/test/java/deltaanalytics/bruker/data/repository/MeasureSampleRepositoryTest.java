@@ -1,17 +1,27 @@
 package deltaanalytics.bruker.data.repository;
 
+import deltaanalytics.bruker.Application;
 import deltaanalytics.bruker.data.entity.BrukerParameters;
 import deltaanalytics.bruker.data.entity.MeasureSample;
 import deltaanalytics.bruker.data.entity.MeasureSampleResult;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(Application.class)
 public class MeasureSampleRepositoryTest {
+
+    @Autowired
+    MeasureSampleRepository measureSampleRepository;
+
     @Test
-    public void create(){
-        CleanTestMemDB.cleanUp();
+    public void create() {
         MeasureSample measureSample = new MeasureSample();
         MeasureSampleResult measureSampleResult = new MeasureSampleResult();
         measureSampleResult.setFirstValue(1.001);
@@ -19,10 +29,9 @@ public class MeasureSampleRepositoryTest {
         measureSample.addMeasureSampleResult(measureSampleResult);
         measureSample.setBrukerParameters(BrukerParameters.getDefault());
 
-        MeasureSampleRepository measureSampleRepository = new MeasureSampleRepository();
-        measureSampleRepository.createOrUpdate(measureSample);
+        measureSampleRepository.save(measureSample);
 
-        MeasureSample measureSampleInDb = measureSampleRepository.read(measureSample.getId());
+        MeasureSample measureSampleInDb = measureSampleRepository.findOne(measureSample.getId());
 
         assertThat(measureSample, is(equalTo(measureSampleInDb)));
         assertThat(measureSample.getMeasureSampleResults().size(), is(equalTo(1)));

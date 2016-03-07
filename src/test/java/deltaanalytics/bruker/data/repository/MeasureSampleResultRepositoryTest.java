@@ -1,8 +1,12 @@
 package deltaanalytics.bruker.data.repository;
 
+import deltaanalytics.bruker.Application;
 import deltaanalytics.bruker.data.entity.MeasureSampleResult;
-import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
@@ -10,62 +14,59 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(Application.class)
 public class MeasureSampleResultRepositoryTest {
 
-    @After
-    public void tearDown(){
-        CleanTestMemDB.cleanUp();
-    }
+    @Autowired
+    MeasureSampleResultRepository measureSampleResultRepository;
 
     @Test
-    public void create(){
+    public void create() {
         MeasureSampleResult measureSampleResult = new MeasureSampleResult();
         measureSampleResult.setFirstValue(1.0);
         measureSampleResult.setSecondValue(2.0);
 
-        MeasureSampleResultRepository measureSampleResultRepository = new MeasureSampleResultRepository();
-        measureSampleResultRepository.createOrUpdate(measureSampleResult);
+        measureSampleResultRepository.save(measureSampleResult);
 
-        MeasureSampleResult measureSampleResultFromDb = measureSampleResultRepository.read(measureSampleResult.getId());
+        MeasureSampleResult measureSampleResultFromDb = measureSampleResultRepository.findOne(measureSampleResult.getId());
 
         assertThat(measureSampleResult, is(equalTo(measureSampleResultFromDb)));
     }
 
     @Test
-    public void update(){
+    public void update() {
         MeasureSampleResult measureSampleResult = new MeasureSampleResult();
         measureSampleResult.setFirstValue(1.0);
         measureSampleResult.setSecondValue(2.0);
 
-        MeasureSampleResultRepository measureSampleResultRepository = new MeasureSampleResultRepository();
-        measureSampleResultRepository.createOrUpdate(measureSampleResult);
+        measureSampleResultRepository.save(measureSampleResult);
 
         double updatedFirstValue = 99.01;
         measureSampleResult.setFirstValue(updatedFirstValue);
-        measureSampleResultRepository.createOrUpdate(measureSampleResult);
+        measureSampleResultRepository.save(measureSampleResult);
 
-        MeasureSampleResult measureSampleResultUpdated = measureSampleResultRepository.read(measureSampleResult.getId());
+        MeasureSampleResult measureSampleResultUpdated = measureSampleResultRepository.findOne(measureSampleResult.getId());
 
         assertThat(measureSampleResultUpdated.getFirstValue(), is(equalTo(updatedFirstValue)));
     }
 
     @Test
-    public void findAll(){
+    public void findAll() {
         MeasureSampleResult measureSampleResult = new MeasureSampleResult();
         measureSampleResult.setFirstValue(1.0);
         measureSampleResult.setSecondValue(2.0);
 
-        MeasureSampleResultRepository measureSampleResultRepository = new MeasureSampleResultRepository();
-        measureSampleResultRepository.createOrUpdate(measureSampleResult);
+        measureSampleResultRepository.save(measureSampleResult);
 
         MeasureSampleResult measureSampleResult2 = new MeasureSampleResult();
         measureSampleResult2.setFirstValue(11.0);
         measureSampleResult2.setSecondValue(22.0);
 
-        measureSampleResultRepository.createOrUpdate(measureSampleResult2);
+        measureSampleResultRepository.save(measureSampleResult2);
 
         List<MeasureSampleResult> all = measureSampleResultRepository.findAll();
 
-        assertThat(all.size(), is(equalTo(2)));
+        assertThat(all.size(), is(equalTo(4)));
     }
 }
