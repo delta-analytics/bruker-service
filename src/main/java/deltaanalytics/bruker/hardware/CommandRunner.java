@@ -33,14 +33,15 @@ public class CommandRunner {
         return run(new GetVersionCommand().build(host, port))[0];
     }
 
-    public void measureReference(BrukerParameters brukerParameters) {
+    public void measureReference() {
         MeasureReference measureReference = new MeasureReference();
+        BrukerParameters currentDefaults = brukerParametersRepository.findByCurrentDefaultTrue();
         try {
             LOGGER.info("measureReference");
             measureReference.setBrukerStateEnum(BrukerStateEnum.QUEUED);
-            measureReference.setBrukerParameters(brukerParameters);
+            measureReference.setBrukerParameters(currentDefaults);
             measureReferenceRepository.save(measureReference);
-            run(new MeasureReferenceCommand().build(host, port, brukerParameters));
+            run(new MeasureReferenceCommand().build(host, port, currentDefaults));
             measureReference.setBrukerStateEnum(BrukerStateEnum.FINISHED);
             measureReferenceRepository.save(measureReference);
         } catch (Exception e) {

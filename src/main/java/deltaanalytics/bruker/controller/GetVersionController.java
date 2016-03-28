@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GetVersionController {
     private Logger LOGGER = LoggerFactory.getLogger(GetVersionController.class);
-    @Autowired
     private CommandRunner commandRunner;
 
     @RequestMapping("/version")
@@ -23,5 +22,10 @@ public class GetVersionController {
             result = "Error " + e.getMessage();
         }
         return result;
+    }
+
+    @Autowired
+    public void setCommandRunner(CommandRunner commandRunner) {
+        this.commandRunner = commandRunner;
     }
 }
