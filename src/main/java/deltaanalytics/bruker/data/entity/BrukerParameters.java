@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class BrukerParameters implements BrukerDataEntity{
+public class BrukerParameters{
     private long id;
     private MeasureSample measureSample;
     private boolean currentDefault;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class MeasureReference implements BrukerDataEntity {
+public class MeasureReference {
     private long id;
 
     private BrukerParameters brukerParameters;

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class MeasureSampleResult implements BrukerDataEntity {
+public class MeasureSampleResult {
 
     private long id;
     private double firstValue;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class MeasureSample implements BrukerDataEntity {
+public class MeasureSample{
     private long id;
 
     private List<MeasureSampleResult> measureSampleResults = new ArrayList<>();
