@@ -28,7 +28,9 @@ public class MeasureSampleController {
     @RequestMapping(value = "/measureSamples", method = RequestMethod.GET)
     public List<MeasureSample> measureSamples() {
         LOGGER.info("measureSamples");
-        return measureSampleRepository.findAll();
+        List<MeasureSample> all = measureSampleRepository.findAll();
+        LOGGER.info("measureSamples in DB " + all.size());
+        return all;
     }
 
     @Autowired

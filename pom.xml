@@ -53,6 +53,12 @@
             <version>1.4.185</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+
     </dependencies>
 
 
