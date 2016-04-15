@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -23,9 +24,9 @@ public class BrukerParameterControllerTest {
     BrukerParametersRepository brukerParametersRepository;
 
     @Test
-    public void postDefaultParameter(){
+    public void postDefaultParameter() {
         BrukerParameters brukerParameters = BrukerParameters.getDefault();
-        String nam = "NAM"+System.currentTimeMillis();
+        String nam = "NAM" + System.currentTimeMillis();
         brukerParameters.setNAM(nam);
         new TestRestTemplate().postForLocation("http://localhost:50000/defaultParameter", brukerParameters);
 

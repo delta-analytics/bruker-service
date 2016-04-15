@@ -1,33 +1,35 @@
-package deltaanalytics.bruker.controller;
+package deltaanalytics.bruker.controller.simulation;
 
 import deltaanalytics.bruker.data.entity.BrukerParameters;
-import deltaanalytics.bruker.data.repository.BrukerParametersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Profile("production")
+@Profile("simulation")
 @RestController
 public class BrukerParameterController {
     private Logger LOGGER = LoggerFactory.getLogger(BrukerParameterController.class);
-    private BrukerParametersRepository brukerParametersRepository;
+    private BrukerParameterWrapper brukerParameterWrapper;
 
     @RequestMapping(value = "/defaultParameter", method = RequestMethod.POST)
     public void defaults(@RequestBody BrukerParameters brukerParameters) {
         LOGGER.info("POST defaults " + brukerParameters.toString());
-        brukerParametersRepository.saveAndMarkNewDefaults(brukerParameters);
+        brukerParameterWrapper.setBrukerParameters(brukerParameters);
     }
 
     @RequestMapping(value = "/defaultParameter", method = RequestMethod.GET)
     public BrukerParameters getDefaults() {
         LOGGER.info("GET defaults");
-        return brukerParametersRepository.findByCurrentDefaultTrue();
+        return brukerParameterWrapper.getBrukerParameters();
     }
 
     @Autowired
-    public void setBrukerParametersRepository(BrukerParametersRepository brukerParametersRepository) {
-        this.brukerParametersRepository = brukerParametersRepository;
+    public void setBrukerParameterWrapper(BrukerParameterWrapper brukerParameterWrapper) {
+        this.brukerParameterWrapper = brukerParameterWrapper;
     }
 }
