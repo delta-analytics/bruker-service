@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Profile("production")
+@Profile({"production", "test"})
 @RestController
 public class GetVersionController {
     private Logger LOGGER = LoggerFactory.getLogger(GetVersionController.class);

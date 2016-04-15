@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Profile("production")
+@Profile({"production", "test"})
 @RestController
 public class MeasureReferenceController {
     private Logger LOGGER = LoggerFactory.getLogger(MeasureReferenceController.class);

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
-@Profile("production")
+@Profile({"production", "test"})
 @RestController
 public class BrukerParameterController {
     private Logger LOGGER = LoggerFactory.getLogger(BrukerParameterController.class);
