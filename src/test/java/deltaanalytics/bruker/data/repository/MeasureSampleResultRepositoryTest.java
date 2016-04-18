@@ -9,6 +9,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import javax.transaction.Transactional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -16,6 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
+@Transactional
 public class MeasureSampleResultRepositoryTest {
 
     @Autowired
@@ -67,6 +69,6 @@ public class MeasureSampleResultRepositoryTest {
 
         List<MeasureSampleResult> all = measureSampleResultRepository.findAll();
 
-        assertThat(all.size(), is(equalTo(4)));
+        assertThat(all.size(), is(equalTo(2)));
     }
 }

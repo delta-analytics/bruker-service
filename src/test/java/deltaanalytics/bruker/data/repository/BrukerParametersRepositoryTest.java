@@ -2,6 +2,7 @@ package deltaanalytics.bruker.data.repository;
 
 import deltaanalytics.bruker.Application;
 import deltaanalytics.bruker.data.entity.BrukerParameters;
+import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
+@Transactional
 public class BrukerParametersRepositoryTest {
     @Autowired
     BrukerParametersRepository brukerParametersRepository;

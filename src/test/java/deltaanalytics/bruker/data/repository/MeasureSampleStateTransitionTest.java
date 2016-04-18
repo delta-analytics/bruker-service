@@ -4,6 +4,7 @@ import deltaanalytics.bruker.Application;
 import deltaanalytics.bruker.data.entity.BrukerParameters;
 import deltaanalytics.bruker.data.entity.BrukerStateEnum;
 import deltaanalytics.bruker.data.entity.MeasureSample;
+import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
+@Transactional
 public class MeasureSampleStateTransitionTest {
 
     @Autowired
