@@ -59,7 +59,7 @@ public class BrukerDefaultParametersTest {
         brukerDefaultParameters.setRCH("Module port");
         brukerDefaultParameters.setRES(1.0);
         brukerDefaultParameters.setRGN("-1");
-        brukerDefaultParameters.setSAN("Test24.1.dpt");
+        brukerDefaultParameters.setSAN("Test24");
         brukerDefaultParameters.setSEP(",");
         brukerDefaultParameters.setSFM("MATRIX-MF");
         brukerDefaultParameters.setSGN("-1");

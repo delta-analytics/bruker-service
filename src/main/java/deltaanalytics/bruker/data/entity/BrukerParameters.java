@@ -13,8 +13,11 @@ public class BrukerParameters{
     private boolean currentDefault;
     private String ADP;
     private int ADT;
+    //ToDo Liste in GUI
     private String APF;
+    //ToDo Liste in GUI
     private String APT;
+    //ToDo Liste in GUI
     private String AQM;
     private String BMS;
     private String BSF;
@@ -49,7 +52,9 @@ public class BrukerParameters{
     private String PGN;
     private String PGR;
     private double PHR;
+    //ToDo Liste in GUI
     private String PHZ;
+    //ToDo Liste in GUI
     private String PLF;
     private String PTH;
     private String RCH;
@@ -572,7 +577,7 @@ public class BrukerParameters{
         brukerDefaultParameters.setRCH("Module port");
         brukerDefaultParameters.setRES(1.0);
         brukerDefaultParameters.setRGN("-1");
-        brukerDefaultParameters.setSAN("Test24.1.dpt");
+        brukerDefaultParameters.setSAN("Test24");
         brukerDefaultParameters.setSEP(",");
         brukerDefaultParameters.setSFM("MATRIX-MF");
         brukerDefaultParameters.setSGN("-1");
