@@ -13,7 +13,9 @@ public class BrukerParameterMerger {
         brukerParameters.setAPT(mutableBrukerParametersDto.getAPT());
         brukerParameters.setAQM(mutableBrukerParametersDto.getAQM());
         brukerParameters.setBMS(mutableBrukerParametersDto.getBMS());
-        brukerParameters.setBSF(mutableBrukerParametersDto.getBSF());
+        if (mutableBrukerParametersDto.getBSF() != null) {
+            brukerParameters.setBSF(mutableBrukerParametersDto.getBSF());
+        }
         brukerParameters.setCNM(mutableBrukerParametersDto.getCNM());
         brukerParameters.setDAP(mutableBrukerParametersDto.getDAP());
         brukerParameters.setDPA(mutableBrukerParametersDto.getDPA());
@@ -24,6 +26,7 @@ public class BrukerParameterMerger {
         brukerParameters.setDPO(mutableBrukerParametersDto.getDPO());
         brukerParameters.setEXP(mutableBrukerParametersDto.getEXP());
         brukerParameters.setHFQ(mutableBrukerParametersDto.getHFQ());
+        brukerParameters.setHFW(mutableBrukerParametersDto.getHFW());
         brukerParameters.setLFW(mutableBrukerParametersDto.getLFW());
         brukerParameters.setNAM(mutableBrukerParametersDto.getNAM());
         brukerParameters.setNSS(mutableBrukerParametersDto.getNSS());

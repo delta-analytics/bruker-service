@@ -20,7 +20,7 @@ public class MeasureSampleResult {
     public MeasureSampleResult(String row) {
         String[] commaSplit = row.split(",");
         firstValue = Double.parseDouble(commaSplit[0].trim());
-        secondValue = Double.parseDouble(commaSplit[0].trim());
+        secondValue = Double.parseDouble(commaSplit[1].trim());
     }
 
     @Id

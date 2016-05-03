@@ -71,6 +71,10 @@ public class BrukerParameters{
     private String XPP;
     private String YON;
     private String ZFF;
+    private String INP;
+    private String IFP;
+    private String INM;
+    private String IFN;
 
     @Id
     @GeneratedValue
@@ -556,6 +560,10 @@ public class BrukerParameters{
         brukerDefaultParameters.setHFQ(1800);
         brukerDefaultParameters.setHFW(8000);
         brukerDefaultParameters.setIRS(700);
+        brukerDefaultParameters.setIFP("C:\\OPUS_7.0.129\\METHODS");
+        brukerDefaultParameters.setINP("C:\\OPUS_7.0.129\\METHODS");
+        brukerDefaultParameters.setINM("DEFAULT");
+        brukerDefaultParameters.setIFN("DEFAULT");
         brukerDefaultParameters.setHPF(1);
         brukerDefaultParameters.setLFQ(4000);
         brukerDefaultParameters.setLFW(1800);
@@ -607,6 +615,7 @@ public class BrukerParameters{
 
         BrukerParameters that = (BrukerParameters) o;
 
+        if (id != that.id) return false;
         if (currentDefault != that.currentDefault) return false;
         if (ADT != that.ADT) return false;
         if (COF != that.COF) return false;
@@ -664,7 +673,11 @@ public class BrukerParameters{
         if (X64 != null ? !X64.equals(that.X64) : that.X64 != null) return false;
         if (XPP != null ? !XPP.equals(that.XPP) : that.XPP != null) return false;
         if (YON != null ? !YON.equals(that.YON) : that.YON != null) return false;
-        return !(ZFF != null ? !ZFF.equals(that.ZFF) : that.ZFF != null);
+        if (ZFF != null ? !ZFF.equals(that.ZFF) : that.ZFF != null) return false;
+        if (INP != null ? !INP.equals(that.INP) : that.INP != null) return false;
+        if (IFP != null ? !IFP.equals(that.IFP) : that.IFP != null) return false;
+        if (INM != null ? !INM.equals(that.INM) : that.INM != null) return false;
+        return !(IFN != null ? !IFN.equals(that.IFN) : that.IFN != null);
 
     }
 
@@ -672,7 +685,8 @@ public class BrukerParameters{
     public int hashCode() {
         int result;
         long temp;
-        result = measureSample != null ? measureSample.hashCode() : 0;
+        result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (measureSample != null ? measureSample.hashCode() : 0);
         result = 31 * result + (currentDefault ? 1 : 0);
         result = 31 * result + (ADP != null ? ADP.hashCode() : 0);
         result = 31 * result + ADT;
@@ -737,6 +751,10 @@ public class BrukerParameters{
         result = 31 * result + (XPP != null ? XPP.hashCode() : 0);
         result = 31 * result + (YON != null ? YON.hashCode() : 0);
         result = 31 * result + (ZFF != null ? ZFF.hashCode() : 0);
+        result = 31 * result + (INP != null ? INP.hashCode() : 0);
+        result = 31 * result + (IFP != null ? IFP.hashCode() : 0);
+        result = 31 * result + (INM != null ? INM.hashCode() : 0);
+        result = 31 * result + (IFN != null ? IFN.hashCode() : 0);
         return result;
     }
 
@@ -801,6 +819,42 @@ public class BrukerParameters{
                 ", XPP='" + XPP + '\'' +
                 ", YON='" + YON + '\'' +
                 ", ZFF='" + ZFF + '\'' +
+                ", INP='" + INP + '\'' +
+                ", IFP='" + IFP + '\'' +
+                ", INM='" + INM + '\'' +
+                ", IFN='" + IFN + '\'' +
                 '}';
+    }
+
+    public String getINP() {
+        return INP;
+    }
+
+    public void setINP(String INP) {
+        this.INP = INP;
+    }
+
+    public String getIFP() {
+        return IFP;
+    }
+
+    public void setIFP(String IFP) {
+        this.IFP = IFP;
+    }
+
+    public String getINM() {
+        return INM;
+    }
+
+    public void setINM(String INM) {
+        this.INM = INM;
+    }
+
+    public String getIFN() {
+        return IFN;
+    }
+
+    public void setIFN(String IFN) {
+        this.IFN = IFN;
     }
 }

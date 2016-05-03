@@ -73,7 +73,7 @@ public class CommandRunner {
             currentDefaults.setSAN(measureSampleCommandResult.getFileName());
             measureSample.setFilename(measureSampleCommandResult.getPath() + File.separator + measureSampleCommandResult.getFileName());
             run(new SaveAsCommand().build(host, currentDefaults, measureSampleCommandResult.getFileId()));
-            measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(currentDefaults.getDAP(), currentDefaults.getSAN()));
+            measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(currentDefaults.getDAP(), currentDefaults.getSAN() + ".dpt"));
             measureSampleRepository.save(measureSample);
             //jueke Temp und Pressure speichern / mitteln
             LOGGER.info("unload");
@@ -82,20 +82,23 @@ public class CommandRunner {
             measureSampleRepository.save(measureSample);
         } catch (Exception e) {
             measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED_WITH_ERRORS);
-            measureSample.setFinishedAt(LocalDateTime.now());
             measureSample.setError(getStackTrace(e));
             measureSampleRepository.save(measureSample);
             throw new RuntimeException(e);
+        } finally {
+            measureSample.setFinishedAt(LocalDateTime.now());
         }
 
     }
 
     private String[] run(String encodedCommand) throws Exception {
+        LOGGER.info(encodedCommand);
+        String withoutPathSpaces = encodedCommand.replaceAll("\\s\\\\", "\\");
         Socket s = new Socket(host, port);
         OutputStream theOutput = s.getOutputStream();
         PrintWriter pw = new PrintWriter(theOutput, false);
-        LOGGER.info(encodedCommand);
-        pw.write("GET " + encodedCommand + " HTTP/1.0\r\n");
+        LOGGER.info(withoutPathSpaces);
+        pw.write("GET " + withoutPathSpaces + " HTTP/1.0\r\n");
         pw.write("Accept: text/plain, text/html, text/*\r\n");
         pw.write("\r\n");
         pw.flush();

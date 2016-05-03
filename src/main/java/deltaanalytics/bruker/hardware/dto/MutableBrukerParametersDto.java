@@ -14,7 +14,9 @@ public class MutableBrukerParametersDto {
     private int DPO;
     private String EXP;
     private double HFQ;
+    private double HFW;
     private double LFW;
+    private double LFQ;
     private String NAM;
     private int NSS;
     private int NSR;
@@ -218,6 +220,22 @@ public class MutableBrukerParametersDto {
         this.XPP = XPP;
     }
 
+    public double getHFW() {
+        return HFW;
+    }
+
+    public void setHFW(double HFW) {
+        this.HFW = HFW;
+    }
+
+    public double getLFQ() {
+        return LFQ;
+    }
+
+    public void setLFQ(double LFQ) {
+        this.LFQ = LFQ;
+    }
+
     @Override
     public String toString() {
         return "MutableBrukerParametersDto{" +
@@ -234,7 +252,9 @@ public class MutableBrukerParametersDto {
                 ", DPO=" + DPO +
                 ", EXP='" + EXP + '\'' +
                 ", HFQ=" + HFQ +
+                ", HFW=" + HFW +
                 ", LFW=" + LFW +
+                ", LFQ=" + LFQ +
                 ", NAM='" + NAM + '\'' +
                 ", NSS=" + NSS +
                 ", NSR=" + NSR +
