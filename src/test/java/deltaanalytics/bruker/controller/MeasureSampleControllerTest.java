@@ -44,4 +44,16 @@ public class MeasureSampleControllerTest {
 
         assertThat(measureSamplesResult, is(equalTo(measureSampleList)));
     }
+
+    @Test
+    public void getMeasureSample(){
+        MeasureSample measureSample = new MeasureSample();
+        long id = 1;
+        measureSample.setId(id);
+        when(measureSampleRepository.findOne(id)).thenReturn(measureSample);
+
+        MeasureSample result = measureSampleController.getMeasureSample(id);
+
+        assertThat(result, is(measureSample));
+    }
 }
