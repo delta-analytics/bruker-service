@@ -8,7 +8,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Ignore
 public class SaveAsCommandTest {
     @Test
     public void run() throws Exception {
@@ -22,6 +21,6 @@ public class SaveAsCommandTest {
     }
 
     private String expectedRequest(int fileId) throws Exception {
-        return ExpectedCommandListForTestFactory.build("http://localhost/SaveAs ([" + fileId + ":AB], " + BrukerParametersForTestFactory.asString() + ")");
+        return ExpectedCommandListForTestFactory.build("http://localhost/OpusCommand.htm?SaveAs ([" + fileId + ":AB], " + BrukerParametersForTestFactory.asSaveAsString() + ")");
     }
 }

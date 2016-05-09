@@ -1,14 +1,15 @@
 package deltaanalytics.bruker.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class MeasureSample{
+public class MeasureSample {
     private long id;
-
     private List<MeasureSampleResult> measureSampleResults = new ArrayList<>();
     private BrukerParameters brukerParameters;
     private LocalDateTime createdAt;
@@ -17,6 +18,7 @@ public class MeasureSample{
     private String filename;
     private String error;
 
+    @JsonView(View.SmallSummary.class)
     @Id
     @GeneratedValue
     public long getId() {
@@ -31,7 +33,7 @@ public class MeasureSample{
         this.measureSampleResults.add(measureSampleResult);
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     public List<MeasureSampleResult> getMeasureSampleResults() {
         return measureSampleResults;
     }
@@ -40,7 +42,7 @@ public class MeasureSample{
         this.measureSampleResults = measureSampleResults;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     public BrukerParameters getBrukerParameters() {
         return brukerParameters;
     }
@@ -49,6 +51,7 @@ public class MeasureSample{
         this.brukerParameters = brukerParameters;
     }
 
+    @JsonView(View.SmallSummary.class)
     @Column
     public LocalDateTime getFinishedAt() {
         return finishedAt;
@@ -58,6 +61,7 @@ public class MeasureSample{
         this.finishedAt = finishedAt;
     }
 
+    @JsonView(View.SmallSummary.class)
     @Column
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -67,6 +71,7 @@ public class MeasureSample{
         this.createdAt = createdAt;
     }
 
+    @JsonView(View.SmallSummary.class)
     public BrukerStateEnum getBrukerStateEnum() {
         return brukerStateEnum;
     }
@@ -75,6 +80,7 @@ public class MeasureSample{
         this.brukerStateEnum = brukerStateEnum;
     }
 
+    @JsonView(View.SmallSummary.class)
     public String getFilename() {
         return filename;
     }
@@ -83,6 +89,7 @@ public class MeasureSample{
         this.filename = filename;
     }
 
+    @JsonView(View.SmallSummary.class)
     @Lob
     @Column
     public String getError() {

@@ -8,7 +8,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Ignore
 public class BrukerDefaultParametersTest {
     @Test
     public void checkCorrectDefaultValues(){
@@ -39,6 +38,10 @@ public class BrukerDefaultParametersTest {
         brukerDefaultParameters.setGSG("ON");
         brukerDefaultParameters.setHFQ(1800);
         brukerDefaultParameters.setHFW(8000);
+        brukerDefaultParameters.setIFN("DEFAULT");
+        brukerDefaultParameters.setIFP("C:\\OPUS_7.0.129\\METHODS");
+        brukerDefaultParameters.setINM("DEFAULT");
+        brukerDefaultParameters.setINP("C:\\OPUS_7.0.129\\METHODS");
         brukerDefaultParameters.setIRS(700);
         brukerDefaultParameters.setHPF(1);
         brukerDefaultParameters.setLFQ(4000);

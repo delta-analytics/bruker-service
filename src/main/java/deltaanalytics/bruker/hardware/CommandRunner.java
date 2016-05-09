@@ -59,6 +59,7 @@ public class CommandRunner {
         try {
             LOGGER.info("measureSample");
             measureSample.setBrukerParameters(currentDefaults);
+            measureSample.setCreatedAt(LocalDateTime.now());
             measureSample.setBrukerStateEnum(BrukerStateEnum.QUEUED);
             measureSampleRepository.save(measureSample);
             measureSample.setBrukerStateEnum(BrukerStateEnum.RUNNING);

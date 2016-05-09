@@ -18,7 +18,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
 @Transactional
-@Ignore
 public class MeasureReferenceRepositoryTest {
 
     @Autowired
@@ -29,7 +28,8 @@ public class MeasureReferenceRepositoryTest {
         MeasureReference measureReference = new MeasureReference();
         measureReference.setBrukerParameters(BrukerParameters.getDefault());
 
-        measureReferenceRepository.save(measureReference);
+        MeasureReference measureReferenceSaved = measureReferenceRepository.save(measureReference);
+        measureReference.setId(measureReferenceSaved.getId());
 
         MeasureReference measureReferenceInDb = measureReferenceRepository.findOne(measureReference.getId());
 

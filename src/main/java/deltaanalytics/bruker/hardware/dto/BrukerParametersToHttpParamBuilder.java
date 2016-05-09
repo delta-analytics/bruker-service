@@ -70,6 +70,7 @@ public class BrukerParametersToHttpParamBuilder {
     public static String buildForSaveAs(BrukerParameters brukerParameters) {
         StringBuilder result = new StringBuilder();
         result.append("{");
+        result.append("ADP='" + brukerParameters.getADP() + "', ");
         result.append("DAP='" + brukerParameters.getDAP() + "', ");
         result.append("OEX='" + brukerParameters.getOEX() + "', ");
         result.append("SAN='" + brukerParameters.getSAN() + ".dpt" + "', ");
@@ -82,7 +83,6 @@ public class BrukerParametersToHttpParamBuilder {
         result.append("DPO=" + brukerParameters.getDPO() + ", ");
         result.append("SEP='" + brukerParameters.getSEP() + "', ");
         result.append("YON='" + brukerParameters.getYON() + "', ");
-        result.append("ADP='" + brukerParameters.getADP() + "', ");
         result.append("X64='" + brukerParameters.getX64() + "'");
         result.append("}");
         return result.toString();

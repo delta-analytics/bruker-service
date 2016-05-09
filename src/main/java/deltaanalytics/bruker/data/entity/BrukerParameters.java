@@ -615,7 +615,6 @@ public class BrukerParameters{
 
         BrukerParameters that = (BrukerParameters) o;
 
-        if (id != that.id) return false;
         if (currentDefault != that.currentDefault) return false;
         if (ADT != that.ADT) return false;
         if (COF != that.COF) return false;
@@ -685,8 +684,7 @@ public class BrukerParameters{
     public int hashCode() {
         int result;
         long temp;
-        result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (measureSample != null ? measureSample.hashCode() : 0);
+        result = measureSample != null ? measureSample.hashCode() : 0;
         result = 31 * result + (currentDefault ? 1 : 0);
         result = 31 * result + (ADP != null ? ADP.hashCode() : 0);
         result = 31 * result + ADT;

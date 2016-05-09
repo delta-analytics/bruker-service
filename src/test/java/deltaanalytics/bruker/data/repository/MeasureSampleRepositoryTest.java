@@ -19,7 +19,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
 @Transactional
-@Ignore
 public class MeasureSampleRepositoryTest {
 
     @Autowired

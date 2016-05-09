@@ -1,8 +1,10 @@
 package deltaanalytics.bruker.controller.simulation;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import deltaanalytics.bruker.data.entity.BrukerStateEnum;
 import deltaanalytics.bruker.data.entity.MeasureSample;
 import deltaanalytics.bruker.data.entity.MeasureSampleResult;
+import deltaanalytics.bruker.data.entity.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +40,13 @@ public class MeasureSampleController {
         measureSampleResult.setId(new Random().nextLong());
         measureSampleResult.setFirstValue(new Random().nextDouble());
         measureSampleResult.setSecondValue(new Random().nextDouble());
-        measureSampleResult.setMeasureSample(measureSample);
         measureSampleResults.add(measureSampleResult);
         measureSample.setMeasureSampleResults(measureSampleResults);
         measureSamples.add(measureSample);
         LOGGER.info("measureSample finished");
     }
 
+    @JsonView(View.SmallSummary.class)
     @RequestMapping(value = "/measureSamples", method = RequestMethod.GET)
     public List<MeasureSample> measureSamples() {
         LOGGER.info("measureSamples in DB " + measureSamples().size());
@@ -56,13 +58,14 @@ public class MeasureSampleController {
         LOGGER.info("getMeasureSample " + id);
         MeasureSample result = null;
         for (MeasureSample measureSample : measureSamples) {
-            if(measureSample.getId() == id){
+            if (measureSample.getId() == id) {
                 result = measureSample;
                 break;
             }
         }
         return result;
     }
+
     @Autowired
     public void setBrukerParameterWrapper(BrukerParameterWrapper brukerParameterWrapper) {
         this.brukerParameterWrapper = brukerParameterWrapper;

@@ -1,6 +1,8 @@
 package deltaanalytics.bruker.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import deltaanalytics.bruker.data.entity.MeasureSample;
+import deltaanalytics.bruker.data.entity.View;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
 import deltaanalytics.bruker.hardware.CommandRunner;
 import org.slf4j.Logger;
@@ -28,6 +30,7 @@ public class MeasureSampleController {
         LOGGER.info("measureSample finished");
     }
 
+    @JsonView(View.SmallSummary.class)
     @RequestMapping(value = "/measureSamples", method = RequestMethod.GET)
     public List<MeasureSample> measureSamples() {
         LOGGER.info("measureSamples");

@@ -69,6 +69,27 @@ public class BrukerParametersForTestFactory {
         return brukerParameters;
     }
 
+    public static String asSaveAsString() {
+        StringBuilder result = new StringBuilder();
+        result.append("{");
+        result.append("ADP='" + brukerParameters.getADP() + "', ");
+        result.append("DAP='" + brukerParameters.getDAP() + "', ");
+        result.append("OEX='" + brukerParameters.getOEX() + "', ");
+        result.append("SAN='" + brukerParameters.getSAN() + ".dpt" + "', ");
+        result.append("COF='" + brukerParameters.getCOF() + "', ");
+        result.append("INP='" + brukerParameters.getINP() + "', ");
+        result.append("IFP='" + brukerParameters.getIFP() + "', ");
+        result.append("INM='" + brukerParameters.getINM() + "', ");
+        result.append("IFN='" + brukerParameters.getIFN() + "', ");
+        result.append("DPA=" + brukerParameters.getDPA() + ", ");
+        result.append("DPO=" + brukerParameters.getDPO() + ", ");
+        result.append("SEP='" + brukerParameters.getSEP() + "', ");
+        result.append("YON='" + brukerParameters.getYON() + "', ");
+        result.append("X64='" + brukerParameters.getX64() + "'");
+        result.append("}");
+        return result.toString();
+    }
+
     public static String asString() {
         StringBuilder result = new StringBuilder();
         result.append("{");

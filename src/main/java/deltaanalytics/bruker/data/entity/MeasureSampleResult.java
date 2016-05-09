@@ -4,7 +4,6 @@ package deltaanalytics.bruker.data.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class MeasureSampleResult {
@@ -12,7 +11,6 @@ public class MeasureSampleResult {
     private long id;
     private double firstValue;
     private double secondValue;
-    private MeasureSample measureSample;
 
     public MeasureSampleResult() {
     }
@@ -47,15 +45,6 @@ public class MeasureSampleResult {
 
     public void setSecondValue(double secondValue) {
         this.secondValue = secondValue;
-    }
-
-    @ManyToOne
-    public MeasureSample getMeasureSample() {
-        return measureSample;
-    }
-
-    public void setMeasureSample(MeasureSample measureSample) {
-        this.measureSample = measureSample;
     }
 
     @Override

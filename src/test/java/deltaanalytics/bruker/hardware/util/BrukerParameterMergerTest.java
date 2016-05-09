@@ -9,7 +9,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Ignore
 public class BrukerParameterMergerTest {
 
     @Test
@@ -24,7 +23,6 @@ public class BrukerParameterMergerTest {
     private MutableBrukerParametersDto build() {
         MutableBrukerParametersDto mutableBrukerParametersDto = new MutableBrukerParametersDto();
         mutableBrukerParametersDto.setNSS(9999);
-        mutableBrukerParametersDto.setId(1);
         mutableBrukerParametersDto.setSAN("mutSan");
         mutableBrukerParametersDto.setAPF("mutApf");
         mutableBrukerParametersDto.setAPT("mutApt");
@@ -55,7 +53,6 @@ public class BrukerParameterMergerTest {
     private BrukerParameters expected() {
         BrukerParameters brukerParameters = BrukerParameters.getDefault();
         brukerParameters.setNSS(9999);
-        brukerParameters.setId(1);
         brukerParameters.setSAN("mutSan");
         brukerParameters.setAPF("mutApf");
         brukerParameters.setAPT("mutApt");
