@@ -52,7 +52,6 @@ public class MeasureSample {
     }
 
     @JsonView(View.SmallSummary.class)
-    @Column
     public LocalDateTime getFinishedAt() {
         return finishedAt;
     }
@@ -62,7 +61,6 @@ public class MeasureSample {
     }
 
     @JsonView(View.SmallSummary.class)
-    @Column
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -91,7 +89,6 @@ public class MeasureSample {
 
     @JsonView(View.SmallSummary.class)
     @Lob
-    @Column
     public String getError() {
         return error;
     }
