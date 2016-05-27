@@ -53,6 +53,7 @@ public class CommandRunner {
         }
     }
 
+    // ToDo Intensitätswerte (2 Spalten Ergebnis) nicht speichern, dafür aber das berechnete Ergebnis (ppm's)
     public void measureSample() {
         MeasureSample measureSample = new MeasureSample();
         BrukerParameters currentDefaults = brukerParametersRepository.findByCurrentDefaultTrue();
