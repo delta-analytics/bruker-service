@@ -73,9 +73,10 @@ public class CommandRunner {
             LOGGER.info(currentDefaults.getDAP());
             LOGGER.info(currentDefaults.getSAN());
             currentDefaults.setSAN(measureSampleCommandResult.getFileName());
-            measureSample.setFilename(measureSampleCommandResult.getPath() + File.separator + measureSampleCommandResult.getFileName());
+            final String DPT = ".dpt";
+            measureSample.setFilename(measureSampleCommandResult.getPath() + File.separator + measureSampleCommandResult.getFileName() + DPT);
             run(new SaveAsCommand().build(host, currentDefaults, measureSampleCommandResult.getFileId()));
-            measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(currentDefaults.getDAP(), currentDefaults.getSAN() + ".dpt"));
+            measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(currentDefaults.getDAP(), currentDefaults.getSAN() + DPT));
             measureSampleRepository.save(measureSample);
             //jueke Temp und Pressure speichern / mitteln
             LOGGER.info("unload");
