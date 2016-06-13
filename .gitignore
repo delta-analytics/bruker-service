@@ -4,3 +4,4 @@ bruker-service.iml
 target
 *.log
 logs
+_application.properties
