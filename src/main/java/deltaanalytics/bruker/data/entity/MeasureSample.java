@@ -17,7 +17,7 @@ public class MeasureSample {
     private BrukerStateEnum brukerStateEnum;
     private String filename;
     private String error;
-    private MeasureSampleMoleculeResult measureSampleMoleculeResult;
+    private MoleculeResult measureSampleMoleculeResult;
 
     @JsonView(View.SmallSummary.class)
     @Id
@@ -99,11 +99,11 @@ public class MeasureSample {
     }
 
     @OneToOne
-    public MeasureSampleMoleculeResult getMeasureSampleMoleculeResult() {
+    public MoleculeResult getMeasureSampleMoleculeResult() {
         return measureSampleMoleculeResult;
     }
 
-    public void setMeasureSampleMoleculeResult(MeasureSampleMoleculeResult measureSampleMoleculeResult) {
+    public void setMeasureSampleMoleculeResult(MoleculeResult measureSampleMoleculeResult) {
         this.measureSampleMoleculeResult = measureSampleMoleculeResult;
     }
 

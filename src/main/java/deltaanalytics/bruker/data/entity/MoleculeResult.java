@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class MeasureSampleMoleculeResult {
+public class MoleculeResult {
     private long id;
     private double ppmH2O;
     private double ppmCO2;

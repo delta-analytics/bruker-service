@@ -1,7 +1,7 @@
 package deltaanalytics.bruker.controller;
 
 import deltaanalytics.bruker.data.entity.MeasureSample;
-import deltaanalytics.bruker.data.entity.MeasureSampleMoleculeResult;
+import deltaanalytics.bruker.data.entity.MoleculeResult;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -19,7 +19,7 @@ public class MeasureSampleMoleculeResultControllerTest {
         MeasureSample measureSample = new MeasureSample();
         when(measureSampleRepository.findOne(measureSampleId)).thenReturn(measureSample);
 
-        measureSampleMoleculeResultController.addMoleculeResult(measureSampleId, new MeasureSampleMoleculeResult());
+        measureSampleMoleculeResultController.addMoleculeResult(measureSampleId, new MoleculeResult());
 
         verify(measureSampleRepository).findOne(measureSampleId);
         verify(measureSampleRepository).save(measureSample);
