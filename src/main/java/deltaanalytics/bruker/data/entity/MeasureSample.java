@@ -17,7 +17,7 @@ public class MeasureSample {
     private BrukerStateEnum brukerStateEnum;
     private String filename;
     private String error;
-    private MoleculeResult measureSampleMoleculeResult;
+    private MoleculeResultList moleculeResultList;
 
     @JsonView(View.SmallSummary.class)
     @Id
@@ -99,12 +99,12 @@ public class MeasureSample {
     }
 
     @OneToOne
-    public MoleculeResult getMeasureSampleMoleculeResult() {
-        return measureSampleMoleculeResult;
+    public MoleculeResultList getMoleculeResultList() {
+        return moleculeResultList;
     }
 
-    public void setMeasureSampleMoleculeResult(MoleculeResult measureSampleMoleculeResult) {
-        this.measureSampleMoleculeResult = measureSampleMoleculeResult;
+    public void setMoleculeResultList(MoleculeResultList moleculeResultList) {
+        this.moleculeResultList = moleculeResultList;
     }
 
     @PrePersist
@@ -132,6 +132,7 @@ public class MeasureSample {
                 ", createdAt=" + createdAt +
                 ", finishedAt=" + finishedAt +
                 ", brukerStateEnum=" + brukerStateEnum +
+                ", moleculeResultList=" + moleculeResultList +
                 ", error='" + error + '\'' +
                 '}';
     }

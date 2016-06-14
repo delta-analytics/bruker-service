@@ -1,7 +1,7 @@
 package deltaanalytics.bruker.controller;
 
 import deltaanalytics.bruker.data.entity.MeasureSample;
-import deltaanalytics.bruker.data.entity.MoleculeResult;
+import deltaanalytics.bruker.data.entity.MoleculeResultList;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ public class MeasureSampleMoleculeResultController {
     private MeasureSampleRepository measureSampleRepository;
 
     @RequestMapping(value = "/moleculeResult/{measureSampleId}", method = RequestMethod.POST)
-    public void addMoleculeResult(@PathVariable Long measureSampleId, @RequestBody MoleculeResult measureSampleMoleculeResult) {
+    public void addMoleculeResult(@PathVariable Long measureSampleId, @RequestBody MoleculeResultList measureSampleMoleculeResult) {
         LOGGER.info("POST moleculeResult " + measureSampleMoleculeResult.toString() + " for " + measureSampleId);
         MeasureSample measureSample = measureSampleRepository.findOne(measureSampleId);
         measureSample.setMeasureSampleMoleculeResult(measureSampleMoleculeResult);

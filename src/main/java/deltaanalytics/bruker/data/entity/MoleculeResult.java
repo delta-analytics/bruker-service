@@ -7,14 +7,19 @@ import javax.persistence.Id;
 @Entity
 public class MoleculeResult {
     private long id;
-    private double ppmH2O;
-    private double ppmCO2;
-    private double ppmN2O;
-    private double ppmCO;
-    private double ppmCH4;
-    private double ppmNO;
-    private double ppmNO2;
 
+    private int molecule;
+    private double mixingRatioFromIntegralUnderTheCurve;
+    private double mixingRatioFromHitranSum;
+    private double r2;
+    private double TimeInSecForLevenbergMarquardtFit;
+    private double estimatedFov;
+    private double fovLineShift;
+    private double additionalLineShift;
+    private double effectiveResolution;
+    private double amplitudeFitFactor;
+    private double offsetFitConstant;
+    
     @Id
     @GeneratedValue
     public long getId() {
@@ -24,73 +29,115 @@ public class MoleculeResult {
     public void setId(long id) {
         this.id = id;
     }
+    
 
-    public double getPpmH2O() {
-        return ppmH2O;
+
+    public double getMixingRatioFromIntegralUnderTheCurve() {
+        return mixingRatioFromIntegralUnderTheCurve;
     }
 
-    public void setPpmH2O(double ppmH2O) {
-        this.ppmH2O = ppmH2O;
+    public void setMixingRatioFromIntegralUnderTheCurve(double mixingRatioFromIntegralUnderTheCurve) {
+        this.mixingRatioFromIntegralUnderTheCurve = mixingRatioFromIntegralUnderTheCurve;
     }
 
-    public double getPpmCO2() {
-        return ppmCO2;
+    public double getMixingRatioFromHitranSum() {
+        return mixingRatioFromHitranSum;
     }
 
-    public void setPpmCO2(double ppmCO2) {
-        this.ppmCO2 = ppmCO2;
+    public void setMixingRatioFromHitranSum(double mixingRatioFromHitranSum) {
+        this.mixingRatioFromHitranSum = mixingRatioFromHitranSum;
     }
 
-    public double getPpmN2O() {
-        return ppmN2O;
+    public double getR2() {
+        return r2;
     }
 
-    public void setPpmN2O(double ppmN2O) {
-        this.ppmN2O = ppmN2O;
+    public void setR2(double r2) {
+        this.r2 = r2;
     }
 
-    public double getPpmCO() {
-        return ppmCO;
+    public double getTimeInSecForLevenbergMarquardtFit() {
+        return TimeInSecForLevenbergMarquardtFit;
     }
 
-    public void setPpmCO(double ppmCO) {
-        this.ppmCO = ppmCO;
+    public void setTimeInSecForLevenbergMarquardtFit(double timeInSecForLevenbergMarquardtFit) {
+        TimeInSecForLevenbergMarquardtFit = timeInSecForLevenbergMarquardtFit;
     }
 
-    public double getPpmCH4() {
-        return ppmCH4;
+    public double getEstimatedFov() {
+        return estimatedFov;
     }
 
-    public void setPpmCH4(double ppmCH4) {
-        this.ppmCH4 = ppmCH4;
+    public void setEstimatedFov(double estimatedFov) {
+        this.estimatedFov = estimatedFov;
     }
 
-    public double getPpmNO() {
-        return ppmNO;
+    public double getFovLineShift() {
+        return fovLineShift;
     }
 
-    public void setPpmNO(double ppmNO) {
-        this.ppmNO = ppmNO;
+    public void setFovLineShift(double fovLineShift) {
+        this.fovLineShift = fovLineShift;
     }
 
-    public double getPpmNO2() {
-        return ppmNO2;
+    public double getAdditionalLineShift() {
+        return additionalLineShift;
     }
 
-    public void setPpmNO2(double ppmNO2) {
-        this.ppmNO2 = ppmNO2;
+    public void setAdditionalLineShift(double additionalLineShift) {
+        this.additionalLineShift = additionalLineShift;
     }
 
+    public double getEffectiveResolution() {
+        return effectiveResolution;
+    }
+
+    public void setEffectiveResolution(double effectiveResolution) {
+        this.effectiveResolution = effectiveResolution;
+    }
+
+    public double getAmplitudeFitFactor() {
+        return amplitudeFitFactor;
+    }
+
+    public void setAmplitudeFitFactor(double amplitudeFitFactor) {
+        this.amplitudeFitFactor = amplitudeFitFactor;
+    }
+
+    public double getOffsetFitConstant() {
+        return offsetFitConstant;
+    }
+
+    public void setOffsetFitConstant(double offsetFitConstant) {
+        this.offsetFitConstant = offsetFitConstant;
+    }
+
+    public int getMolecule() {
+        return molecule;
+    }
+
+    public void setMolecule(int molecule) {
+        this.molecule = molecule;
+    }    
+    
     @Override
     public String toString() {
-        return "MeasureSampleMoleculeResult{" +
-                "ppmNO2=" + ppmNO2 +
-                ", ppmNO=" + ppmNO +
-                ", ppmCH4=" + ppmCH4 +
-                ", ppmCO=" + ppmCO +
-                ", ppmN2O=" + ppmN2O +
-                ", ppmCO2=" + ppmCO2 +
-                ", ppmH2O=" + ppmH2O +
-                '}';
-    }
+        return "Result{"
+                + "molecule=" + molecule
+                + ", mixingRatioFromIntegralUnderTheCurve=" + mixingRatioFromIntegralUnderTheCurve 
+                + ", mixingRatioFromHitranSum=" + mixingRatioFromHitranSum 
+                + ", r2=" + r2 
+                + ", TimeInSecForLevenbergMarquardtFit=" + TimeInSecForLevenbergMarquardtFit 
+                + ", estimatedFov=" + estimatedFov 
+                + ", fovLineShift=" + fovLineShift 
+                + ", additionalLineShift=" + additionalLineShift 
+                + ", effectiveResolution=" + effectiveResolution 
+                + ", amplitudeFitFactor=" + amplitudeFitFactor 
+                + ", offsetFitConstant=" + offsetFitConstant 
+                + ", time in sec for fit=" + TimeInSecForLevenbergMarquardtFit 
+                + "}";
+    }    
+
+    
+    
 }
