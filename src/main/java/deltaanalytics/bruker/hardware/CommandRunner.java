@@ -83,9 +83,11 @@ public class CommandRunner {
             
             LOGGER.info("unload");
             run(new UnloadCommand().build(host, measureSampleCommandResult.getFileId()));
-            measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED);
+            
             measureSampleRepository.save(measureSample);
+            measureSample.setBrukerStateEnum(BrukerStateEnum.CALCULATING);
             mathRestClient.start(measureSample.getId());
+            measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED);
         } catch (Exception e) {
             measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED_WITH_ERRORS);
             measureSample.setError(getStackTrace(e));
