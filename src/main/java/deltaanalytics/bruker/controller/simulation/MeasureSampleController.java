@@ -3,7 +3,6 @@ package deltaanalytics.bruker.controller.simulation;
 import com.fasterxml.jackson.annotation.JsonView;
 import deltaanalytics.bruker.data.entity.BrukerStateEnum;
 import deltaanalytics.bruker.data.entity.MeasureSample;
-import deltaanalytics.bruker.data.entity.MeasureSampleResult;
 import deltaanalytics.bruker.data.entity.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,13 +34,6 @@ public class MeasureSampleController {
         measureSample.setCreatedAt(LocalDateTime.now());
         measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED);
         measureSample.setBrukerParameters(brukerParameterWrapper.getBrukerParameters());
-        List<MeasureSampleResult> measureSampleResults = new ArrayList<>();
-        MeasureSampleResult measureSampleResult = new MeasureSampleResult();
-        measureSampleResult.setId(new Random().nextLong());
-        measureSampleResult.setFirstValue(new Random().nextDouble());
-        measureSampleResult.setSecondValue(new Random().nextDouble());
-        measureSampleResults.add(measureSampleResult);
-        measureSample.setMeasureSampleResults(measureSampleResults);
         measureSamples.add(measureSample);
         LOGGER.info("measureSample finished");
     }

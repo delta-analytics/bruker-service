@@ -3,10 +3,11 @@ package deltaanalytics.bruker.data.repository;
 import deltaanalytics.bruker.Application;
 import deltaanalytics.bruker.data.entity.BrukerParameters;
 import deltaanalytics.bruker.data.entity.MeasureSample;
-import deltaanalytics.bruker.data.entity.MeasureSampleResult;
+import deltaanalytics.bruker.data.entity.MoleculeResult;
+import deltaanalytics.bruker.data.entity.MoleculeResults;
+import java.util.List;
 import javax.transaction.Transactional;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,10 +29,14 @@ public class MeasureSampleRepositoryTest {
     @Test
     public void create() {
         MeasureSample measureSample = new MeasureSample();
-        MeasureSampleResult measureSampleResult = new MeasureSampleResult();
-        measureSampleResult.setFirstValue(1.001);
-        measureSampleResult.setSecondValue(2.002);
-        measureSample.addMeasureSampleResult(measureSampleResult);
+        MoleculeResult moleculeResult1 = new MoleculeResult();
+        MoleculeResult moleculeResult2 = new MoleculeResult();
+        moleculeResult1.setMixingRatioFromHitranSum(2.001);
+        moleculeResult2.setMixingRatioFromHitranSum(1.993);
+        MoleculeResults moleculeResults = new MoleculeResults();
+        moleculeResults.addMoleculeResult(moleculeResult1);
+        moleculeResults.addMoleculeResult(moleculeResult2);
+        measureSample.setMoleculeResults(moleculeResults);
         measureSample.setBrukerParameters(BrukerParameters.getDefault());
 
         measureSampleRepository.save(measureSample);
@@ -38,8 +44,10 @@ public class MeasureSampleRepositoryTest {
         MeasureSample measureSampleInDb = measureSampleRepository.findOne(measureSample.getId());
 
         assertThat(measureSample, is(equalTo(measureSampleInDb)));
-        assertThat(measureSample.getMeasureSampleResults().size(), is(equalTo(1)));
-        assertThat(measureSample.getMeasureSampleResults().get(0), is(equalTo(measureSampleResult)));
+        final List<MoleculeResult> moleculeResultListFromDB = measureSample.getMoleculeResults().getMoleculeResultList();
+        assertThat(moleculeResultListFromDB.size(), is(2));
+        assertThat(moleculeResultListFromDB.get(0), is(moleculeResult1));
+        assertThat(moleculeResultListFromDB.get(1), is(moleculeResult2));
         assertThat(measureSample.getBrukerParameters(), is(not(nullValue())));
         assertThat(measureSample.getBrukerParameters(), is(equalTo(BrukerParameters.getDefault())));
         assertThat(measureSample.getCreatedAt(), is(not(nullValue())));

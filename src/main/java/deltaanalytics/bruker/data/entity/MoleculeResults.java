@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class MoleculeResultList {
+public class MoleculeResults {
     private long id;
     private List<MoleculeResult> allMolecules = new ArrayList<>();
 
@@ -18,6 +18,10 @@ public class MoleculeResultList {
     @GeneratedValue
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void addMoleculeResult(MoleculeResult moleculeResult) {

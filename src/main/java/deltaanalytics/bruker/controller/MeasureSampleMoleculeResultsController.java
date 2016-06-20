@@ -1,7 +1,7 @@
 package deltaanalytics.bruker.controller;
 
 import deltaanalytics.bruker.data.entity.MeasureSample;
-import deltaanalytics.bruker.data.entity.MoleculeResultList;
+import deltaanalytics.bruker.data.entity.MoleculeResults;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Profile({"production", "test"})
 @RestController
-public class MeasureSampleMoleculeResultController {
-    private Logger LOGGER = LoggerFactory.getLogger(MeasureSampleMoleculeResultController.class);
+public class MeasureSampleMoleculeResultsController {
+    private Logger LOGGER = LoggerFactory.getLogger(MeasureSampleMoleculeResultsController.class);
     @Autowired
     private MeasureSampleRepository measureSampleRepository;
 
-    @RequestMapping(value = "/moleculeResult/{measureSampleId}", method = RequestMethod.POST)
-    public void addMoleculeResult(@PathVariable Long measureSampleId, @RequestBody MoleculeResultList measureSampleMoleculeResult) {
-        LOGGER.info("POST moleculeResult " + measureSampleMoleculeResult.toString() + " for " + measureSampleId);
+    @RequestMapping(value = "/moleculeResults/{measureSampleId}", method = RequestMethod.POST)
+    public void addMoleculeResults(@PathVariable Long measureSampleId, @RequestBody MoleculeResults measureMoleculeResults) {
+        LOGGER.info("POST moleculeResult " + measureMoleculeResults.toString() + " for " + measureSampleId);
         MeasureSample measureSample = measureSampleRepository.findOne(measureSampleId);
-        measureSample.setMeasureSampleMoleculeResult(measureSampleMoleculeResult);
+        measureSample.setMoleculeResults(measureMoleculeResults);
         measureSampleRepository.save(measureSample);
     }
 }

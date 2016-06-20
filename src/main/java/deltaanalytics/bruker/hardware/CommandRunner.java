@@ -8,16 +8,14 @@ import deltaanalytics.bruker.data.repository.BrukerParametersRepository;
 import deltaanalytics.bruker.data.repository.MeasureReferenceRepository;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
 import deltaanalytics.bruker.hardware.commands.*;
-import deltaanalytics.bruker.hardware.util.MeasureSampleResultParser;
+import java.io.*;
+import java.net.Socket;
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.io.*;
-import java.net.Socket;
-import java.time.LocalDateTime;
 
 @Component
 public class CommandRunner {
@@ -76,7 +74,7 @@ public class CommandRunner {
             final String DPT = ".dpt";
             measureSample.setFilename(measureSampleCommandResult.getPath() + File.separator + measureSampleCommandResult.getFileName() + DPT);
             run(new SaveAsCommand().build(host, currentDefaults, measureSampleCommandResult.getFileId()));
-            measureSample.setMeasureSampleResults(new MeasureSampleResultParser().parse(currentDefaults.getDAP(), currentDefaults.getSAN() + DPT));
+            
             measureSampleRepository.save(measureSample);
             //jueke Temp und Pressure speichern / mitteln
             LOGGER.info("unload");

@@ -4,20 +4,17 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class MeasureSample {
     private long id;
-    private List<MeasureSampleResult> measureSampleResults = new ArrayList<>();
     private BrukerParameters brukerParameters;
     private LocalDateTime createdAt;
     private LocalDateTime finishedAt;
     private BrukerStateEnum brukerStateEnum;
     private String filename;
     private String error;
-    private MoleculeResultList moleculeResultList;
+    private MoleculeResults moleculeResults;
 
     @JsonView(View.SmallSummary.class)
     @Id
@@ -28,19 +25,6 @@ public class MeasureSample {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public void addMeasureSampleResult(MeasureSampleResult measureSampleResult) {
-        this.measureSampleResults.add(measureSampleResult);
-    }
-
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<MeasureSampleResult> getMeasureSampleResults() {
-        return measureSampleResults;
-    }
-
-    public void setMeasureSampleResults(List<MeasureSampleResult> measureSampleResults) {
-        this.measureSampleResults = measureSampleResults;
     }
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -99,12 +83,12 @@ public class MeasureSample {
     }
 
     @OneToOne
-    public MoleculeResultList getMoleculeResultList() {
-        return moleculeResultList;
+    public MoleculeResults getMoleculeResults() {
+        return moleculeResults;
     }
 
-    public void setMoleculeResultList(MoleculeResultList moleculeResultList) {
-        this.moleculeResultList = moleculeResultList;
+    public void setMoleculeResults(MoleculeResults moleculeResults) {
+        this.moleculeResults = moleculeResults;
     }
 
     @PrePersist
@@ -127,12 +111,11 @@ public class MeasureSample {
     public String toString() {
         return "MeasureSample{" +
                 "id=" + id +
-                ", measureSampleResults=" + measureSampleResults +
                 ", brukerParameters=" + brukerParameters +
                 ", createdAt=" + createdAt +
                 ", finishedAt=" + finishedAt +
                 ", brukerStateEnum=" + brukerStateEnum +
-                ", moleculeResultList=" + moleculeResultList +
+                ", moleculeResultList=" + moleculeResults +
                 ", error='" + error + '\'' +
                 '}';
     }
