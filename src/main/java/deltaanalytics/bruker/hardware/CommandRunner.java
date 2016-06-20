@@ -8,6 +8,7 @@ import deltaanalytics.bruker.data.repository.BrukerParametersRepository;
 import deltaanalytics.bruker.data.repository.MeasureReferenceRepository;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
 import deltaanalytics.bruker.hardware.commands.*;
+import deltaanalytics.bruker.MathRestClient;
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalDateTime;
@@ -25,7 +26,10 @@ public class CommandRunner {
     private MeasureSampleRepository measureSampleRepository;
     private String host;
     private int port;
-
+    
+    @Autowired
+    private MathRestClient mathRestClient;
+    
     public String getVersion() throws Exception {
         LOGGER.info("getVersion");
         return run(new GetVersionCommand().build(host, port))[0];
@@ -76,11 +80,12 @@ public class CommandRunner {
             run(new SaveAsCommand().build(host, currentDefaults, measureSampleCommandResult.getFileId()));
             
             measureSampleRepository.save(measureSample);
-            //jueke Temp und Pressure speichern / mitteln
+            
             LOGGER.info("unload");
             run(new UnloadCommand().build(host, measureSampleCommandResult.getFileId()));
             measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED);
             measureSampleRepository.save(measureSample);
+            mathRestClient.start(measureSample.getId());
         } catch (Exception e) {
             measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED_WITH_ERRORS);
             measureSample.setError(getStackTrace(e));
