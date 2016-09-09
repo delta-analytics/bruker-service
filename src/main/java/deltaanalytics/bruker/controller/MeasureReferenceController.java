@@ -27,12 +27,6 @@ public class MeasureReferenceController {
         LOGGER.info("measureReference finished");
     }
 
-    @RequestMapping(value = "/measureReferences", method = RequestMethod.GET)
-    public List<MeasureReference> measureReferences() {
-        LOGGER.info("measureReferences");
-        return measureReferenceRepository.findAll();
-    }
-
     @Autowired
     public void setCommandRunner(CommandRunner commandRunner) {
         this.commandRunner = commandRunner;

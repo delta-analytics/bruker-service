@@ -31,17 +31,17 @@ public class MeasureSampleController {
     }
 
     @JsonView(View.SmallSummary.class)
-    @RequestMapping(value = "/measureSamples", method = RequestMethod.GET)
-    public List<MeasureSample> measureSamples() {
-        LOGGER.info("measureSamples");
+    @RequestMapping(value = "/getMeasuredSamples", method = RequestMethod.GET)
+    public List<MeasureSample> measuredSamples() {
+        LOGGER.info("all measuredSamples");
         List<MeasureSample> all = measureSampleRepository.findAll();
-        LOGGER.info("measureSamples in DB " + all.size());
+        LOGGER.info("all measuredSamples in DB " + all.size());
         return all;
     }
 
-    @RequestMapping(value = "/measureSamples/{id}")
-    public MeasureSample getMeasureSample(@PathVariable long id) {
-        LOGGER.info("getMeasureSample " + id);
+    @RequestMapping(value = "/getMeasuredSample/{id}")
+    public MeasureSample measuredSample(@PathVariable long id) {
+        LOGGER.info("measuredSample " + id);
         return measureSampleRepository.findOne(id);
     }
 

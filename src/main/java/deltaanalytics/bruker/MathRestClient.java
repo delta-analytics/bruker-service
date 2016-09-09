@@ -22,7 +22,7 @@ public class MathRestClient {
         logger.info("startCalculation " + id);
         String request = hostWithPort() + "/" + mathServiceStartUrl + "/" + id;
         logger.info(request);
-         restTemplate.postForLocation(request, null);
+        restTemplate.postForLocation(request, null);
     }
 
     private String hostWithPort() {

@@ -40,7 +40,7 @@ public class MeasureSampleControllerTest {
         measureSampleList.add(new MeasureSample());
         when(measureSampleRepository.findAll()).thenReturn(measureSampleList);
 
-        List<MeasureSample> measureSamplesResult = measureSampleController.measureSamples();
+        List<MeasureSample> measureSamplesResult = measureSampleController.measuredSamples();
 
         assertThat(measureSamplesResult, is(equalTo(measureSampleList)));
     }
@@ -52,7 +52,7 @@ public class MeasureSampleControllerTest {
         measureSample.setId(id);
         when(measureSampleRepository.findOne(id)).thenReturn(measureSample);
 
-        MeasureSample result = measureSampleController.getMeasureSample(id);
+        MeasureSample result = measureSampleController.measuredSample(id);
 
         assertThat(result, is(measureSample));
     }

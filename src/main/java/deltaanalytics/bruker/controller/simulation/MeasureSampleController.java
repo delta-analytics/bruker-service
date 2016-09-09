@@ -39,15 +39,15 @@ public class MeasureSampleController {
     }
 
     @JsonView(View.SmallSummary.class)
-    @RequestMapping(value = "/measureSamples", method = RequestMethod.GET)
+    @RequestMapping(value = "/measuredSamples", method = RequestMethod.GET)
     public List<MeasureSample> measureSamples() {
-        LOGGER.info("measureSamples in DB " + measureSamples().size());
+        LOGGER.info("measuredSamples in DB " + measureSamples().size());
         return measureSamples;
     }
 
-    @RequestMapping(value = "/measureSamples/{id}")
+    @RequestMapping(value = "/measuredSamples/{id}")
     public MeasureSample getMeasureSample(@PathVariable long id) {
-        LOGGER.info("getMeasureSample " + id);
+        LOGGER.info("measuredSample " + id);
         MeasureSample result = null;
         for (MeasureSample measureSample : measureSamples) {
             if (measureSample.getId() == id) {
