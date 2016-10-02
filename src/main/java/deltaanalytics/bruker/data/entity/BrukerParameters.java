@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class BrukerParameters{
     private long id;
-    private MeasureSample measureSample;
+
     private boolean currentDefault;
     private String ADP;
     private int ADT;
@@ -86,14 +86,6 @@ public class BrukerParameters{
         this.id = id;
     }
 
-    @OneToOne
-    public MeasureSample getMeasureSample() {
-        return measureSample;
-    }
-
-    public void setMeasureSample(MeasureSample measureSample) {
-        this.measureSample = measureSample;
-    }
 
     public String getADP() {
         return ADP;
@@ -535,6 +527,38 @@ public class BrukerParameters{
         this.ZFF = ZFF;
     }
 
+    public String getINP() {
+        return INP;
+    }
+
+    public void setINP(String INP) {
+        this.INP = INP;
+    }
+
+    public String getIFP() {
+        return IFP;
+    }
+
+    public void setIFP(String IFP) {
+        this.IFP = IFP;
+    }
+
+    public String getINM() {
+        return INM;
+    }
+
+    public void setINM(String INM) {
+        this.INM = INM;
+    }
+
+    public String getIFN() {
+        return IFN;
+    }
+
+    public void setIFN(String IFN) {
+        this.IFN = IFN;
+    }
+
     public static BrukerParameters getDefault() {
         BrukerParameters brukerDefaultParameters = new BrukerParameters();
         brukerDefaultParameters.setADP("1");
@@ -636,8 +660,7 @@ public class BrukerParameters{
         if (NSR != that.NSR) return false;
         if (Double.compare(that.PHR, PHR) != 0) return false;
         if (Double.compare(that.RES, RES) != 0) return false;
-        if (measureSample != null ? !measureSample.equals(that.measureSample) : that.measureSample != null)
-            return false;
+
         if (ADP != null ? !ADP.equals(that.ADP) : that.ADP != null) return false;
         if (APF != null ? !APF.equals(that.APF) : that.APF != null) return false;
         if (APT != null ? !APT.equals(that.APT) : that.APT != null) return false;
@@ -684,8 +707,7 @@ public class BrukerParameters{
     public int hashCode() {
         int result;
         long temp;
-        result = measureSample != null ? measureSample.hashCode() : 0;
-        result = 31 * result + (currentDefault ? 1 : 0);
+        result = (currentDefault ? 1 : 0);
         result = 31 * result + (ADP != null ? ADP.hashCode() : 0);
         result = 31 * result + ADT;
         result = 31 * result + (APF != null ? APF.hashCode() : 0);
@@ -760,7 +782,6 @@ public class BrukerParameters{
     public String toString() {
         return "BrukerParameters{" +
                 "id=" + id +
-                ", measureSample=" + measureSample +
                 ", currentDefault=" + currentDefault +
                 ", ADP='" + ADP + '\'' +
                 ", ADT=" + ADT +
@@ -824,35 +845,4 @@ public class BrukerParameters{
                 '}';
     }
 
-    public String getINP() {
-        return INP;
-    }
-
-    public void setINP(String INP) {
-        this.INP = INP;
-    }
-
-    public String getIFP() {
-        return IFP;
-    }
-
-    public void setIFP(String IFP) {
-        this.IFP = IFP;
-    }
-
-    public String getINM() {
-        return INM;
-    }
-
-    public void setINM(String INM) {
-        this.INM = INM;
-    }
-
-    public String getIFN() {
-        return IFN;
-    }
-
-    public void setIFN(String IFN) {
-        this.IFN = IFN;
-    }
 }

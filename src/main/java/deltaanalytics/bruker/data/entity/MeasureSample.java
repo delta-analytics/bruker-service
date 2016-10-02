@@ -82,7 +82,7 @@ public class MeasureSample {
         this.error = error;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     public MoleculeResults getMoleculeResults() {
         return moleculeResults;
     }

@@ -52,7 +52,7 @@ public class MeasureSampleControllerTest {
         measureSample.setId(id);
         when(measureSampleRepository.findOne(id)).thenReturn(measureSample);
 
-        MeasureSample result = measureSampleController.measuredSample(id);
+        MeasureSample result = measureSampleController.getMeasuredSample(id);
 
         assertThat(result, is(measureSample));
     }

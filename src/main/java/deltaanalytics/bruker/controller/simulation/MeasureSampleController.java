@@ -1,9 +1,7 @@
 package deltaanalytics.bruker.controller.simulation;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import deltaanalytics.bruker.data.entity.BrukerStateEnum;
-import deltaanalytics.bruker.data.entity.MeasureSample;
-import deltaanalytics.bruker.data.entity.View;
+import deltaanalytics.bruker.data.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,35 +19,55 @@ import java.util.Random;
 @Profile("simulation")
 @RestController
 public class MeasureSampleController {
-    private Logger LOGGER = LoggerFactory.getLogger(MeasureReferenceController.class);
+    private Logger LOGGER = LoggerFactory.getLogger(MeasureSampleController.class);
     private BrukerParameterWrapper brukerParameterWrapper;
-    private List<MeasureSample> measureSamples = new ArrayList<>();
+    private List<MeasureSample> measuredSamples = new ArrayList<>();
 
     @RequestMapping(value = "/measureSample", method = RequestMethod.POST)
     public void measureSample() {
         LOGGER.info("measureSample");
+        MoleculeResult ch4 = new MoleculeResult();
+        ch4.setMolecule(5);
+        ch4.setId(Math.abs(new Random().nextLong()));
+        ch4.setMixingRatioFromHitranSum(2.04);
+        ch4.setMixingRatioFromIntegralUnderTheCurve(1.98);
+        ch4.setR2(0.97);
+        ch4.setFovLineShift(1.0);
+        ch4.setEffectiveResolution(2.2);
+        ch4.setEstimatedFov(4.1);
+        ch4.setOffsetFitConstant(0.0);
+        ch4.setTimeInSecForLevenbergMarquardtFit(8.0);
+        ch4.setAmplitudeFitFactor(1.1);
+        ch4.setAdditionalLineShift(2.15);
+        ch4.setAmplitudeFitFactor(3.1);
+        MoleculeResults moleculeResults = new MoleculeResults();
+        moleculeResults.addMoleculeResult(ch4);
+
         MeasureSample measureSample = new MeasureSample();
-        measureSample.setFilename("filename");
-        measureSample.setId(new Random().nextLong());
+        measureSample.setFilename("filename" + Integer.valueOf(measuredSamples.size()));
+        measureSample.setId(Math.abs(new Random().nextLong()));
         measureSample.setCreatedAt(LocalDateTime.now());
+        measureSample.setFinishedAt(LocalDateTime.now());
+        measureSample.setError("0");
+        measureSample.setMoleculeResults(moleculeResults);
         measureSample.setBrukerStateEnum(BrukerStateEnum.FINISHED);
         measureSample.setBrukerParameters(brukerParameterWrapper.getBrukerParameters());
-        measureSamples.add(measureSample);
+        measuredSamples.add(measureSample);
         LOGGER.info("measureSample finished");
     }
 
     @JsonView(View.SmallSummary.class)
-    @RequestMapping(value = "/measuredSamples", method = RequestMethod.GET)
-    public List<MeasureSample> measureSamples() {
-        LOGGER.info("measuredSamples in DB " + measureSamples().size());
-        return measureSamples;
+    @RequestMapping(value = "/getMeasuredSamples", method = RequestMethod.GET)
+    public List<MeasureSample> getMeasuredSamples() {
+        LOGGER.info("measuredSamples in ArrayList " + measuredSamples.size());
+        return measuredSamples;
     }
 
-    @RequestMapping(value = "/measuredSamples/{id}")
-    public MeasureSample getMeasureSample(@PathVariable long id) {
-        LOGGER.info("measuredSample " + id);
+    @RequestMapping(value = "/getMeasuredSamples/{id}")
+    public MeasureSample getMeasuredSample(@PathVariable long id) {
+        LOGGER.info("measuredSample with " + id);
         MeasureSample result = null;
-        for (MeasureSample measureSample : measureSamples) {
+        for (MeasureSample measureSample : measuredSamples) {
             if (measureSample.getId() == id) {
                 result = measureSample;
                 break;

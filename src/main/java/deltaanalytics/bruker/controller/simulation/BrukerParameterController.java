@@ -18,7 +18,7 @@ public class BrukerParameterController {
 
     @RequestMapping(value = "/defaultParameter", method = RequestMethod.POST)
     public void defaults(@RequestBody BrukerParameters brukerParameters) {
-        LOGGER.info("POST defaults " + brukerParameters.toString());
+        LOGGER.info("POST defaults " + brukerParameters);
         brukerParameterWrapper.setBrukerParameters(brukerParameters);
     }
 

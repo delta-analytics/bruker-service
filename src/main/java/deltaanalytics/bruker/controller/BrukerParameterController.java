@@ -22,7 +22,7 @@ public class BrukerParameterController {
 
     @RequestMapping(value = "/defaultParameter", method = RequestMethod.POST)
     public void defaults(@RequestBody MutableBrukerParametersDto mutableBrukerParametersDto) {
-        LOGGER.info("POST defaults " + mutableBrukerParametersDto.toString());
+        LOGGER.info("POST defaults " + mutableBrukerParametersDto);
         brukerParametersRepository.saveAndMarkNewDefaults(brukerParameterMerger.merge(mutableBrukerParametersDto, brukerParametersRepository.findByCurrentDefaultTrue()));
     }
 

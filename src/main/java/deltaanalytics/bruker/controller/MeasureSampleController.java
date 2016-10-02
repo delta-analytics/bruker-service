@@ -19,7 +19,7 @@ import java.util.List;
 @Profile({"production", "test"})
 @RestController
 public class MeasureSampleController {
-    private Logger LOGGER = LoggerFactory.getLogger(MeasureReferenceController.class);
+    private Logger LOGGER = LoggerFactory.getLogger(MeasureSampleController.class);
     private CommandRunner commandRunner;
     private MeasureSampleRepository measureSampleRepository;
 
@@ -39,8 +39,8 @@ public class MeasureSampleController {
         return all;
     }
 
-    @RequestMapping(value = "/getMeasuredSample/{id}")
-    public MeasureSample measuredSample(@PathVariable long id) {
+    @RequestMapping(value = "/getMeasuredSamples/{id}")
+    public MeasureSample getMeasuredSample(@PathVariable long id) {
         LOGGER.info("measuredSample " + id);
         return measureSampleRepository.findOne(id);
     }

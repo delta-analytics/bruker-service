@@ -18,7 +18,7 @@ import java.util.Random;
 @RestController
 public class MeasureReferenceController {
     private Logger LOGGER = LoggerFactory.getLogger(MeasureReferenceController.class);
-    private List<MeasureReference> measureReferences = new ArrayList<>();
+    private List<MeasureReference> measuredReferences = new ArrayList<>();
     private BrukerParameterWrapper brukerParameterWrapper;
 
     @RequestMapping(value = "/measureReference", method = RequestMethod.POST)
@@ -29,15 +29,9 @@ public class MeasureReferenceController {
         measureReference.setBrukerStateEnum(BrukerStateEnum.FINISHED);
         measureReference.setCreatedAt(LocalDateTime.now());
         measureReference.setFinishedAt(LocalDateTime.now());
-        measureReference.setId(new Random().nextLong());
-        measureReferences.add(measureReference);
+        measureReference.setId(Math.abs(new Random().nextLong()));
+        measuredReferences.add(measureReference);
         LOGGER.info("measureReference finished");
-    }
-
-    @RequestMapping(value = "/measureReferences", method = RequestMethod.GET)
-    public List<MeasureReference> measureReferences() {
-        LOGGER.info("measureReferences");
-        return measureReferences;
     }
 
     public void setBrukerParameterWrapper(BrukerParameterWrapper brukerParameterWrapper) {

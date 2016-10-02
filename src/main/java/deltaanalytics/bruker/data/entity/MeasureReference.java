@@ -23,7 +23,7 @@ public class MeasureReference {
         this.id = id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)   // FJ why not LAZY as in MeasureSample
     public BrukerParameters getBrukerParameters() {
         return brukerParameters;
     }

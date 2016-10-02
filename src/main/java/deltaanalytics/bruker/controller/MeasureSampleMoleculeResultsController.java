@@ -17,10 +17,10 @@ public class MeasureSampleMoleculeResultsController {
     private MeasureSampleRepository measureSampleRepository;
 
     @RequestMapping(value = "/moleculeResults/{measureSampleId}", method = RequestMethod.POST)
-    public void addMoleculeResults(@PathVariable Long measureSampleId, @RequestBody MoleculeResults measureMoleculeResults) {
-        LOGGER.info("POST moleculeResult " + measureMoleculeResults.toString() + " for " + measureSampleId);
+    public void addMoleculeResults(@PathVariable Long measureSampleId, @RequestBody MoleculeResults measuredMoleculeResults) {
+        LOGGER.info("POST moleculeResults " + measuredMoleculeResults + " for " + measureSampleId);
         MeasureSample measureSample = measureSampleRepository.findOne(measureSampleId);
-        measureSample.setMoleculeResults(measureMoleculeResults);
+        measureSample.setMoleculeResults(measuredMoleculeResults);
         measureSampleRepository.save(measureSample);
     }
 }
